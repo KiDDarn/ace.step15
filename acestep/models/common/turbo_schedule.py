@@ -13,9 +13,12 @@ the list this module returns.
 
 from __future__ import annotations
 
-from typing import List, Optional, Sequence, Union
+from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
 from loguru import logger
+
+if TYPE_CHECKING:
+    import torch
 
 # Discrete shift values supported by the turbo distillation.
 VALID_TURBO_SHIFTS: List[float] = [1.0, 2.0, 3.0]
@@ -60,7 +63,7 @@ def build_turbo_timestep_schedule(
     *,
     infer_steps: Optional[int] = None,
     shift: float = 3.0,
-    timesteps: Optional[Union[Sequence[float], "torch.Tensor"]] = None,
+    timesteps: Optional[Union[Sequence[float], torch.Tensor]] = None,
 ) -> List[float]:
     """Return the turbo timestep schedule (without the trailing 0).
 
